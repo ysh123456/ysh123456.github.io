@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<title>走秀网-anjularJs</title>
+		<script src="js/angular.min.js"></script>
+		<script src="js/angular-sanitize.min.js"></script>
+		<script src="js/angular-animate.min.js"></script>
+	</head>
+	<style>
+		footer{
+			height: 50px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background: rgba(0,0,0,.5);
+		}
+		footer div{
+			flex: 1;
+			text-align: center;
+			color: #ff0;
+		}
+		header{
+			height: 50px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			justify-content: space-between;
+			background: rgba(0,0,0,.5);
+		}
+		header div{
+			flex: 1;
+			text-align: center;
+			color: #ff0;	
+		}
+		
+		h2{
+			margin-top: 60px;
+			color: #f00;
+			height: 1000px;
+			width: 100%;
+		}
+		.pgChange.ng-enter{
+    		transition: all .5s linear;
+    		opacity: 0;
+    	}
+    	.pgChange.ng-enter.ng-enter-active{
+    		opacity: 1;
+    		background-color: aquamarine;
+    	}
+    	.pgChange.ng-leave{
+    		transition: all .5s;
+    		opacity: 1;
+    		background-color: red;
+    	}
+    	.pgChange.ng-leave.ng-leave-active{
+    		opacity: 0;
+    		background-color: blue;
+    	}
+		
+		
+	</style>
+	
+
+	<body ng-controller='myCtrl'>
+
+		<section>
+			<header ng-include="'html/header.html'">
+			</header>
+
+
+			<section ng-include = "'html/'+ thisPage + '.html'" class="pgChange">
+			
+			</section>
+
+			<footer ng-include="'html/footer.html'">
+				
+			</footer>
+		</section>
+
+		<script type="text/javascript">
+			var myApp = angular.module('myApp', ['ngSanitize','ngAnimate']);
+			myApp.controller('myCtrl', ['$scope', function($scope) {
+				$scope.pageInfo = {
+		        'homePage': {
+		            "hlBtn": true,
+		            "hTitle": "走秀网",
+		            "hrBtn": true
+		        },
+		        "listPage": {
+		            "hlBtn": false,
+		            "hTitle": "分类",
+		            "hrBtn": true
+		        },
+		        "shopCartPage": {
+		            "hlBtn": false,
+		            "hTitle": "购物车",
+		            "hrBtn": false
+		        },
+		        "myShowPage": {
+		            "hlBtn": false,
+		            "hTitle": "我的秀",
+		            "hrBtn": true
+		        },
+		        "morePage": {
+		            "hlBtn": false,
+		            "hTitle": "更多",
+		            "hrBtn": true
+		        }
+		    }
+				/*默认刚开始显示首页*/
+				$scope.hTitle = $scope.pageInfo.homePage.hTitle;
+				$scope.hlBtn  = true;
+				$scope.hrBtn  =	true;
+				$scope.thisPage = 'homePage';
+ 
+				$scope.oFlag = function(arg) {
+				console.log(arg)
+					/*对象中调用‘k’的时候其中是变量的话，得用obj[]*/
+					$scope.hTitle = $scope.pageInfo[arg].hTitle;
+					$scope.hlBtn  = $scope.pageInfo[arg].hlBtn;
+					$scope.hrBtn  = $scope.pageInfo[arg].hrBtn;
+					$scope.thisPage = arg;
+				}
+			}])
+		</script>
+	</body>
+
+</html>
