@@ -4,7 +4,7 @@ var
 
 setTimeout(function(){
 	oLoading.css({display:'none'})
-},2000)
+},3000)
 
 window.onload=function(){
 	oUser.css({transform: 'rotate(500deg)'})
